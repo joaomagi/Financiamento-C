@@ -17,6 +17,7 @@ int contratosfeitos = 0;  // Contador de contratos inseridos
 float valorFinanciamentoComDesconto;
 float valorFinanciamentoComJuros;
 int mesesAntecipados;
+float valorFinanciamentoSemDesconto;
 
 // Função para exibir o menu inicial e processar a escolha do usuário
 void MenuInicial(){
@@ -80,6 +81,9 @@ void InserirContratos (){
     printf("Deseja antecipar alguns meses? Se sim quantos: ");
     scanf("%d",&mesesAntecipados);
 
+    printf("Bom histórico de crédito (1 para sim, 0 para não): ");
+    scanf("%d",&bomHistoricoCredito);
+
     // Verifica se o número de meses antecipados é maior que a duração do financiamento
     if (mesesAntecipados > duracaoFinanciamentoMeses){
         printf("A quantidade de meses antecipados é maior que a de meses de finaciamento! \n");
@@ -94,9 +98,6 @@ void InserirContratos (){
         return;
     }
 
-    printf("Bom histórico de crédito (1 para sim, 0 para não): ");
-    scanf("%d",&bomHistoricoCredito);
-
     // Calcula juros e descontos aplicáveis
     calculoDoJuros();
 
@@ -106,11 +107,31 @@ void InserirContratos (){
 
 // Função para calcular juros e descontos no financiamento
 void calculoDoJuros(){
-    // valorFinanciamentoComJuros Recebe o valor total do financiamento
-    valorFinanciamentoComJuros = valorFinanciamento;
+
+    // Define valorFinanciamentoSemDesconto com base no tipo de financiamento
+    if (tipoFinanciamento == 1) {
+        // Financiamento imobiliário
+        printf("FINANCIAMENTO IMOBILIÁRIO\n");
+        valorFinanciamentoSemDesconto = valorFinanciamento + (valorFinanciamento * 0.005) * duracaoFinanciamentoMeses;
+
+    } else if (tipoFinanciamento == 2) {
+        // Financiamento de veículos
+        printf("FINANCIAMENTO DE VEÍCULOS\n");
+        valorFinanciamentoSemDesconto = valorFinanciamento + (valorFinanciamento * 0.008) * duracaoFinanciamentoMeses;
+
+    } else if (tipoFinanciamento == 3) {
+        // Financiamento pessoal
+        printf("FINANCIAMENTO PESSOAL\n");
+        valorFinanciamentoSemDesconto = valorFinanciamento + (valorFinanciamento * 0.012) * duracaoFinanciamentoMeses;
+
+    } else {
+        // Caso não reconhecido
+        printf("Tipo de financiamento inválido.\n");
+        valorFinanciamentoSemDesconto = valorFinanciamento;  // Valor padrão
+    }
 
     // Valor do financiamento por mês antes da antecipação
-    float valorPorMesOriginal = valorFinanciamento / duracaoFinanciamentoMeses;
+    float valorPorMesOriginal = valorFinanciamentoSemDesconto / duracaoFinanciamentoMeses;
 
     // Desconto por mês antecipado
     float descontoPorMes = valorPorMesOriginal * 0.05;
@@ -119,7 +140,7 @@ void calculoDoJuros(){
     float valorTotalAntecipado = (valorPorMesOriginal - descontoPorMes) * mesesAntecipados;
 
     // Atualiza o valorFinanciamentoComJuros subtraindo o valor total antecipado
-    valorFinanciamentoComJuros -= valorTotalAntecipado;
+    valorFinanciamentoComJuros = valorFinanciamentoSemDesconto - valorTotalAntecipado;
 
     // PARA FINS DE TESTE
     printf("Valor a ser pago dos meses antecipados: %.2f\n", valorTotalAntecipado);
@@ -148,6 +169,7 @@ void calculoDoJuros(){
         valorFinanciamentoComDesconto = 0;
     }
 }
+
 
 // Função para apresentar resultados dos contratos inseridos
 void apresentarResultados(){
