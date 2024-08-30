@@ -3,6 +3,11 @@
 
 #define MAX_CONTRATOS 100  // Define o número máximo de contratos que podem ser inseridos
 
+
+// https://www.inf.pucrs.br/~pinho/LaproI/Structs/Structs.htm
+// https://www.w3schools.com/c/c_structs.php
+// https://www.ime.usp.br/~pf/algoritmos/aulas/stru.html
+// https://www.feg.unesp.br/Home/PaginasPessoais/profmarcosapereira3168/programacaodecomputadoresi/manual-de-sintaxe-da-linguagem-c.pdf
 // Variáveis principais para armazenar informações dos contratos
 int tipoFinanciamento;
 float valorFinanciamento;
