@@ -36,7 +36,7 @@ void MenuInicial(){
             InserirContratos();  // Chama a função para inserir contratos
             break;
         case 2:
-            printf("case2 \n");  // Placeholder
+            apresentarResultados(); // chama a função para apresentar resultado
             break;
         case 3:
             printf("case3");  // Placeholder
@@ -68,6 +68,11 @@ void InserirContratos (){
     printf("1 para Imobiliário, 2 para Veículos, 3 para Pessoal  \n");
     printf("Insira o tipo de financiamento: ");
     scanf("%d",&tipoFinanciamento);
+    if (tipoFinanciamento != 1 && tipoFinanciamento != 2 && tipoFinanciamento != 3){
+        printf("Tipo INVÁLIDO.Escolha entre 1,2 ou 3 \n");
+        limparVariaveis();
+        return;
+    }
 
     printf("Insira o valor financiado: ");
     scanf("%f",&valorFinanciamento);
@@ -88,13 +93,7 @@ void InserirContratos (){
     if (mesesAntecipados > duracaoFinanciamentoMeses){
         printf("A quantidade de meses antecipados é maior que a de meses de finaciamento! \n");
         // Reseta todas as variáveis de contrato se a antecipação for inválida
-        tipoFinanciamento = 0;
-        valorFinanciamento = 0;
-        duracaoFinanciamentoMeses = 0;
-        entrada = 0;
-        bomHistoricoCredito = 0;
-        numeroDoContrato = 0;
-        mesesAntecipados = 0;
+        limparVariaveis();
         return;
     }
 
@@ -170,6 +169,17 @@ void calculoDoJuros(){
     }
 }
 
+void limparVariaveis(){ // função para limpar as variaveis
+
+        numeroDoContrato = 0;
+        tipoFinanciamento = 0;
+        valorFinanciamento = 0;
+        duracaoFinanciamentoMeses = 0;
+        entrada = 0;
+        bomHistoricoCredito = 0;
+        numeroDoContrato = 0;
+        mesesAntecipados = 0;
+}
 
 // Função para apresentar resultados dos contratos inseridos
 void apresentarResultados(){
