@@ -1,4 +1,4 @@
-Gerenciador de Contratos de Financiamento
+# Gerenciador de Contratos de Financiamento
 Este projeto é um gerenciador de contratos de financiamento escrito em C. Ele permite ao usuário inserir contratos de financiamento, calcular valores com juros e descontos, ordenar contratos por valor total e imprimir registros específicos.
 
 Funcionalidades
